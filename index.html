@@ -2,62 +2,52 @@
 <html>
 <head>
     <title>Sorpresa Romántica</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0e8ff;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
+    <link id="dynamicStylesheet" rel="stylesheet" type="text/css">
+    <script>
+        const cssPastebinUrl = 'https://pastebin.com/raw/e8kKZexB'; // Cambia esto por tu URL de Pastebin
+
+        // Función para cargar el CSS desde Pastebin
+        async function fetchCSS() {
+            try {
+                const response = await fetch(cssPastebinUrl);
+                if (!response.ok) throw new Error('Error en la red');
+                
+                const cssContent = await response.text();
+                const styleSheet = document.getElementById('dynamicStylesheet');
+                styleSheet.innerHTML = cssContent; // Inserta el CSS en el enlace
+            } catch (error) {
+                console.error("Error al obtener el CSS:", error);
+            }
         }
 
-        #surpriseButton {
-            padding: 15px 30px;
-            font-size: 20px;
-            color: white;
-            background-color: #e85577;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
-        }
+        fetchCSS(); // Llama a la función para cargar el CSS
 
-        #message {
-            display: none;
-            font-size: 26px;
-            color: #d6336c;
-            text-align: center;
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .heart {
-            position: fixed;
-            bottom: -100px;
-            height: 60px;
-            width: 60px;
-            font-size: 35px;
-            opacity: 0.7;
-        }
-
-        @keyframes floating {
-            0% { bottom: 100vh; opacity: 0.7; }
-            100% { bottom: -100vh; opacity: 0; }
-        }
-    </style>
+    </script>
 </head>
 <body>
     <button id="surpriseButton">Nuevo Mensaje</button>
     <div id="message">
-        <p>Hola, amor. Aunque no puedo estar contigo esta noche de Halloween, quiero que sepas que te extraño. Espero que disfrutes de la noche y que pienses en mí. ¡Pronto celebraremos juntos!
-
-            Te mando un abrazo enorme. 🖤✨</p>
+        <p id="messageContent"></p> <!-- Aquí se cargará el contenido del mensaje -->
     </div>
+    
+    <script>
+        const messagePastebinUrl = 'https://pastebin.com/raw/uFveXL8C'; // Cambia esto por tu URL de Pastebin para el mensaje
+    
+        // Función para obtener el contenido del mensaje de Pastebin
+        async function fetchMessageContent() {
+            try {
+                const response = await fetch(messagePastebinUrl);
+                if (!response.ok) throw new Error('Error en la red');
+    
+                const messageContent = await response.text();
+                document.getElementById("messageContent").innerText = messageContent; // Inserta el contenido en el párrafo
+            } catch (error) {
+                console.error("Error al obtener el mensaje:", error);
+            }
+        }
+    
+        fetchMessageContent(); // Llama a la función para cargar el contenido del mensaje
+    </script>
 
     <script>
         let confeti = ''; // Inicialmente vacío, lo llenaremos con el emoji del Pastebin
