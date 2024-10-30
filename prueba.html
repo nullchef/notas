@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorpresa Romántica</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0e8ff;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        #surpriseButton {
+            padding: 15px 30px;
+            font-size: 20px;
+            color: white;
+            background-color: #e85577;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #message {
+            display: none;
+            font-size: 26px;
+            color: #d6336c;
+            text-align: center;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -100px;
+            height: 60px;
+            width: 60px;
+            font-size: 35px;
+            opacity: 0.7;
+        }
+
+        @keyframes floating {
+            0% { bottom: 100vh; opacity: 0.7; }
+            100% { bottom: -100vh; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <button id="surpriseButton">Nuevo Mensaje</button>
+    <div id="message">
+        <p>Hola, amor. Aunque no puedo estar contigo esta noche de Halloween, quiero que sepas que te extraño. Espero que disfrutes de la noche y que pienses en mí. ¡Pronto celebraremos juntos!
+
+            Te mando un abrazo enorme. 🖤✨</p>
+    </div>
+
+    <script>
+        let confeti = ''; // Inicialmente vacío, lo llenaremos con el emoji del Pastebin
+
+        // Función para obtener el emoji de Pastebin
+        async function fetchEmoji() {
+            try {
+                const response = await fetch('https://pastebin.com/raw/mSfBZ8z5'); // URL de tu Pastebin
+                if (!response.ok) throw new Error('Error en la red');
+                
+                const text = await response.text();
+                confeti = text.trim(); // Asigna el contenido del Pastebin a confeti
+
+                console.log("Contenido recibido:", text); // Log del contenido recibido
+                console.log("Emoji obtenido:", confeti); // Verifica que se haya obtenido el emoji
+            } catch (error) {
+                console.error("Error al obtener el emoji:", error);
+            }
+        }
+
+        document.getElementById("surpriseButton").addEventListener("click", async function() {
+            console.log("Botón clickeado"); // Verifica si se hace clic en el botón
+            if (!confeti) {
+                await fetchEmoji(); // Espera a que se obtenga el emoji
+            }
+
+            console.log("Confeti:", confeti); // Verifica el valor de confeti antes de empezar
+
+            this.style.display = 'none';
+            document.getElementById("message").style.display = "block";
+            startHearts();
+        });
+
+        function startHearts() {
+            for (let i = 0; i < 150; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.animation = 'floating ' + (2 + Math.random() * 3) + 's ease-in infinite';
+                heart.innerText = confeti; // Asegúrate de que confeti tenga el emoji
+                heart.style.transform = 'rotate(' + 360 * Math.random() + 'deg)';
+                document.body.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
