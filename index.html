@@ -2,80 +2,32 @@
 <html>
 <head>
     <title>Sorpresa Romántica</title>
-    <link id="dynamicStylesheet" rel="stylesheet" type="text/css">
-    <script>
-        const cssPastebinUrl = 'https://pastebin.com/raw/e8kKZexB'; // Cambia esto por tu URL de Pastebin
-
-        // Función para cargar el CSS desde Pastebin
-        async function fetchCSS() {
-            try {
-                const response = await fetch(cssPastebinUrl);
-                if (!response.ok) throw new Error('Error en la red');
-                
-                const cssContent = await response.text();
-                const styleSheet = document.getElementById('dynamicStylesheet');
-                styleSheet.innerHTML = cssContent; // Inserta el CSS en el enlace
-            } catch (error) {
-                console.error("Error al obtener el CSS:", error);
-            }
-        }
-
-        fetchCSS(); // Llama a la función para cargar el CSS
-
-    </script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <button id="surpriseButton">Nuevo Mensaje</button>
+    <button id="surpriseButton">Para María</button>
     <div id="message">
-        <p id="messageContent"></p> <!-- Aquí se cargará el contenido del mensaje -->
+        <p id="messageContent"></p>
     </div>
-    
-    <script>
-        const messagePastebinUrl = 'https://pastebin.com/raw/uFveXL8C'; // Cambia esto por tu URL de Pastebin para el mensaje
-    
-        // Función para obtener el contenido del mensaje de Pastebin
-        async function fetchMessageContent() {
-            try {
-                const response = await fetch(messagePastebinUrl);
-                if (!response.ok) throw new Error('Error en la red');
-    
-                const messageContent = await response.text();
-                document.getElementById("messageContent").innerText = messageContent; // Inserta el contenido en el párrafo
-            } catch (error) {
-                console.error("Error al obtener el mensaje:", error);
-            }
-        }
-    
-        fetchMessageContent(); // Llama a la función para cargar el contenido del mensaje
-    </script>
 
     <script>
-        let confeti = ''; // Inicialmente vacío, lo llenaremos con el emoji del Pastebin
+        let confeti = ''; // Inicialmente vacío, lo llenaremos con el emoji del JSON
 
-        // Función para obtener el emoji de Pastebin
-        async function fetchEmoji() {
+        // Función para obtener los datos del JSON
+        async function fetchData() {
             try {
-                const response = await fetch('https://pastebin.com/raw/mSfBZ8z5'); // URL de tu Pastebin
+                const response = await fetch('data.json'); // Cambia esto por la ruta a tu JSON
                 if (!response.ok) throw new Error('Error en la red');
                 
-                const text = await response.text();
-                confeti = text.trim(); // Asigna el contenido del Pastebin a confeti
-
-                console.log("Contenido recibido:", text); // Log del contenido recibido
-                console.log("Emoji obtenido:", confeti); // Verifica que se haya obtenido el emoji
+                const data = await response.json();
+                confeti = data.confeti; // Asigna el emoji
+                document.getElementById("messageContent").innerText = data.message; // Asigna el mensaje
             } catch (error) {
-                console.error("Error al obtener el emoji:", error);
+                console.error("Error al obtener los datos:", error);
             }
         }
 
-        document.getElementById("surpriseButton").addEventListener("click", async function() {
-            console.log("Botón clickeado"); // Verifica si se hace clic en el botón
-            if (!confeti) {
-                await fetchEmoji(); // Espera a que se obtenga el emoji
-            }
-
-            console.log("Confeti:", confeti); // Verifica el valor de confeti antes de empezar
-
+        document.getElementById("surpriseButton").addEventListener("click", function() {
             this.style.display = 'none';
             document.getElementById("message").style.display = "block";
             startHearts();
@@ -87,11 +39,13 @@
                 heart.classList.add('heart');
                 heart.style.left = Math.random() * window.innerWidth + 'px';
                 heart.style.animation = 'floating ' + (2 + Math.random() * 3) + 's ease-in infinite';
-                heart.innerText = confeti; // Asegúrate de que confeti tenga el emoji
-                heart.style.transform = 'rotate(' + 360 * Math.random() + 'deg)';
+                heart.innerText = confeti;
+                heart.style.transform= 'rotate(' + 360 * Math.random() + 'deg)';
                 document.body.appendChild(heart);
             }
         }
+
+        fetchData(); // Carga los datos al inicio
     </script>
 </body>
 </html>
