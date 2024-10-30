@@ -2,11 +2,11 @@
     "confeti": "🎃",
     "message": "Hola, amor. Aunque no puedo estar contigo esta noche de Halloween, quiero que sepas que te extraño. Espero que disfrutes de la noche y que pienses en mí. ¡Pronto celebraremos juntos! Te mando un abrazo enorme. 🖤✨",
     "styles": {
-        "backgroundColor": "#f0e8ff",
+        "backgroundColor": "#2B2600",
         "button": {
-            "backgroundColor": "#e85577",
+            "backgroundColor": "#FF9100",
             "color": "white"
         },
-        "messageColor": "#d6336c"
+        "messageColor": "#FFFFFF"
     }
 }
