@@ -6,6 +6,7 @@ body {
     align-items: center;
     font-family: 'Arial', sans-serif;
     overflow: hidden;
+    background-color: #000000; /* Color de fondo */
 }
 
 #surpriseButton {
@@ -15,6 +16,8 @@ body {
     border-radius: 15px;
     cursor: pointer;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+    background-color: #FF9A00; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
 }
 
 #message {
@@ -25,7 +28,13 @@ body {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: #FFFFFF; /* Color del mensaje */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo negro transparente */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para darle profundidad */
 }
+
 
 .heart {
     position: fixed;
